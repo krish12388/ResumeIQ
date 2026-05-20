@@ -1,0 +1,156 @@
+/* InterviewFormPage.css */
+
+.interview-form-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-root);
+}
+
+.if-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+  flex: 1;
+  width: 100%;
+}
+
+.if-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.if-eyebrow {
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.if-heading {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.if-sub {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.if-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.if-form-group {
+  margin-bottom: 28px;
+}
+
+.if-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.if-textarea {
+  width: 100%;
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border-medium);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 140px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  font-family: var(--font-family-base);
+}
+
+.if-textarea:focus {
+  border-color: var(--color-border-focus);
+}
+
+.if-textarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+/* File Upload Zone */
+.if-file-drop {
+  border: 2px dashed var(--color-border-medium);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: rgba(28, 28, 28, 0.4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.if-file-drop:hover, .if-file-drop.active {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.if-file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.if-file-icon {
+  margin-bottom: 16px;
+  color: var(--color-text-muted);
+  display: flex;
+  justify-content: center;
+}
+
+.if-file-drop:hover .if-file-icon {
+  color: var(--color-accent);
+}
+
+.if-file-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.if-file-subtext {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.if-file-selected {
+  font-size: 14px;
+  color: var(--color-success);
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.if-submit-btn {
+  width: 100%;
+  margin-top: 16px;
+  height: 52px;
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  .if-card {
+    padding: 24px;
+  }
+}

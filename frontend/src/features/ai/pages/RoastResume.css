@@ -1,0 +1,695 @@
+/* ============================================================
+   RoastMyResume.css
+   Dark theme — matches InterviewFormPage / Login page system
+   Font: Geist (must be imported in your HTML/index)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================
+   0. TOKENS (mirrors design-system.css)
+   ============================================================ */
+:root {
+  --color-bg-root:        #0a0a0a;
+  --color-bg-surface:     #111111;
+  --color-bg-elevated:    #181818;
+  --color-bg-input:       #1c1c1c;
+  --color-border:         #2e2e2e;
+  --color-border-subtle:  #685d5d;
+  --color-border-focus:   #555555;
+
+  --color-text-primary:   #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted:     #888888;
+  --color-text-faint:     #555555;
+  --color-text-placeholder: #555555;
+
+  /* Roast-specific accent — red */
+  --color-roast:          #d7975b;
+  --color-roast-hover:    #43e043dd;
+  --color-roast-bg:       rgba(239, 68, 68, 0.08);
+  --color-roast-border:   rgba(149, 61, 61, 0.564);
+
+  /* Severity colors */
+  --color-severity-high:    #da512baf;
+  --color-severity-medium:  #f97316;
+  --color-severity-low:     #eab308;
+
+  --font-family-base: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   14px;
+  --radius-2xl:  16px;
+  --radius-pill: 9999px;
+
+  --transition: 0.18s ease;
+
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-lg:   0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+
+/* ============================================================
+   1. PAGE SHELL
+   ============================================================ */
+
+.interview-form-page {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg-root);
+  color: var(--color-text-secondary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 64px 48px;
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+
+/* ============================================================
+   2. LEFT PANEL — HEADER + UPLOAD FORM
+   ============================================================ */
+
+/* --- Eyebrow / section label --- */
+.if-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-roast);
+  margin-bottom: 14px;
+}
+
+.if-eyebrow::before {
+  content: '🔥';
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+/* --- Page heading --- */
+.if-heading {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* --- Subtext --- */
+.if-sub {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  max-width: 380px;
+  margin-top: 12px;
+}
+
+/* --- Card wrapper --- */
+.if-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-2xl);
+  padding: 32px;
+  transition: border-color var(--transition);
+}
+
+.if-card:hover {
+  border-color: var(--color-border);
+}
+
+/* --- Form group --- */
+.if-form-group {
+  margin-bottom: 24px;
+}
+
+/* --- Label --- */
+.if-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  letter-spacing: 0;
+}
+
+/* --- File drop zone --- */
+.if-file-drop {
+  background: var(--color-bg-input);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.if-file-drop:hover,
+.if-file-drop.active {
+  border-color: var(--color-roast);
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.if-file-drop.active {
+  border-style: solid;
+}
+
+/* --- File icon --- */
+.if-file-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-roast-bg);
+  border: 1px solid var(--color-roast-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-roast);
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.if-file-text {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.if-file-subtext {
+  font-size: 12px;
+  color: var(--color-text-faint);
+  margin-top: 4px;
+}
+
+.if-file-selected {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-top: 4px;
+  word-break: break-all;
+}
+
+/* --- Hidden file input --- */
+.if-file-input {
+  display: none;
+}
+
+/* --- Submit button --- */
+.if-submit-btn {
+  width: 100%;
+  padding: 13px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-family-base);
+  color: #ffffff;
+  background: var(--color-roast);
+  border: 1px solid var(--color-roast);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  letter-spacing: -0.1px;
+  transition: background var(--transition), transform 0.1s ease, box-shadow var(--transition);
+  outline: none;
+}
+
+.if-submit-btn:hover:not(:disabled) {
+  background: var(--color-roast-hover);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.if-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.if-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-container{
+  width:100%;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:48px;
+  min-width:90%;
+  transition: border-color var(--transition);
+}
+
+/* ============================================================
+   3. RIGHT PANEL — ROAST OUTPUT
+   ============================================================ */
+
+.roast-output-panel {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-2xl);
+  padding: 32px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  min-width:45%;
+  margin-top: 64px;
+  transition: border-color var(--transition);
+}
+
+.roast-output-panel:hover {
+  border-color: var(--color-border);
+}
+
+/* --- Empty / waiting state --- */
+.roast-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  text-align: center;
+  color: var(--color-text-faint);
+  gap: 14px;
+}
+
+.roast-empty-state svg {
+  opacity: 0.3;
+}
+
+.roast-empty-state p {
+  font-size: 13.5px;
+  color: var(--color-text-faint);
+}
+
+/* --- Loading state --- */
+.roast-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 20px;
+  text-align: center;
+}
+
+.roast-spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-roast);
+  border-radius: 50%;
+  animation: roast-spin 0.75s linear infinite;
+}
+
+@keyframes roast-spin {
+  to { transform: rotate(360deg); }
+}
+
+.roast-loading-state p {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+}
+
+/* --- Result wrapper --- */
+.roast-result {
+  animation: roast-fadein 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+@keyframes roast-fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Result main heading ("The Verdict") --- */
+.roast-verdict-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-roast);
+  letter-spacing: -0.3px;
+  margin: 0 0 4px 0;
+}
+
+/* --- Section headings (Bad Phrases / Weaknesses / Fixes) --- */
+.roast-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-roast);
+  margin: 0 0 12px 0;
+}
+
+/* --- Section wrapper (groups heading + items) --- */
+.roast-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --- Divider between sections --- */
+.roast-divider {
+  height: 1px;
+  background: var(--color-border-subtle);
+  border: none;
+  margin: 4px 0;
+}
+
+/* --- Generic roast block (brutal summary, bad phrase, fix item) --- */
+.roast-block {
+  background: var(--color-roast-bg);
+  border: 1px solid var(--color-roast-border);
+  border-left: 3px solid var(--color-roast);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 16px 20px;
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 10px;
+  transition: border-color var(--transition);
+}
+
+.roast-block:last-child {
+  margin-bottom: 0;
+}
+
+.roast-block:hover {
+  border-left-color: var(--color-roast-hover);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* --- Brutal summary block (slightly larger) --- */
+.roast-block--summary {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--color-text-primary);
+  padding: 20px 24px;
+}
+
+/* --- Fix item (numbered) --- */
+.roast-fix-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.roast-fix-item:last-child {
+  margin-bottom: 0;
+}
+
+.roast-fix-item:hover {
+  border-color: var(--color-roast-border);
+  background: var(--color-roast-bg);
+}
+
+.roast-fix-number {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--color-roast-bg);
+  border: 1px solid var(--color-roast-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-roast);
+  font-style: normal;
+  margin-top: 1px;
+}
+
+.roast-fix-text {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+/* --- Weakness card --- */
+.roast-weakness-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color var(--transition);
+}
+
+.roast-weakness-card:last-child {
+  margin-bottom: 0;
+}
+
+.roast-weakness-card:hover {
+  border-color: var(--color-border);
+}
+
+/* Weakness top row: category + severity badge */
+.roast-weakness-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.roast-weakness-category {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.1px;
+}
+
+/* Severity badge */
+.roast-severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.roast-severity::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.roast-severity--high {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--color-severity-high);
+}
+
+.roast-severity--medium {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--color-severity-medium);
+}
+
+.roast-severity--low {
+  background: rgba(234, 179, 8, 0.12);
+  color: var(--color-severity-low);
+}
+
+/* Weakness body */
+.roast-weakness-issue {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.roast-weakness-impact {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  padding: 10px 14px;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-border);
+}
+
+.roast-weakness-impact strong {
+  color: var(--color-text-faint);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+
+/* ============================================================
+   4. TAGS / PHRASES (bad phrase pill style)
+   ============================================================ */
+
+.roast-phrase-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  margin: 4px;
+}
+
+.roast-phrases-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+
+/* ============================================================
+   5. SCROLLABLE OUTPUT AREA
+   ============================================================ */
+
+.roast-scroll-area {
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.roast-scroll-area::-webkit-scrollbar {
+  width: 5px;
+}
+
+.roast-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.roast-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+}
+
+.roast-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border);
+}
+
+
+/* ============================================================
+   6. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .container {
+    padding: 40px 24px;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 32px 16px;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .if-heading {
+    font-size: 28px;
+  }
+
+  .if-card {
+    padding: 20px;
+  }
+
+  .roast-output-panel {
+    padding: 20px;
+    min-height: 300px;
+  }
+
+  .roast-verdict-heading {
+    font-size: 18px;
+  }
+}
+
+
+/* ============================================================
+   7. UTILITY — GENERIC BTN (keeps existing .btn usage working)
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-accent {
+  background: var(--color-roast);
+  color: #ffffff;
+  border-color: var(--color-roast);
+}
+
+.btn-accent:hover {
+  background: var(--color-roast-hover);
+}
+
+/* ============================================================
+   8. SELECTION
+   ============================================================ */
+
+::selection {
+  background: rgba(239, 68, 68, 0.25);
+  color: var(--color-text-primary);
+}

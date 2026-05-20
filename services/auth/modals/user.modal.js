@@ -1,0 +1,36 @@
+const { Schema, model } = require("mongoose");
+const { createHmac } = require("node:crypto");
+const userSchema = new Schema({
+  name: {
+    type: String,
+    required: [true, "Name is required"],
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: [true, "Email is required"],
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: [true, "password is required"],
+  },
+  profileImage: {
+    type: String,
+    default:
+      "https://cdn.pixabay.com/photo/2018/08/28/13/29/avatar-3637561_1280.png",
+  },
+  bio: {
+    type: String,
+    default: "",
+  },
+});
+userSchema.pre("save", async function () {
+  if (!this.isModified("password"));
+  this.password = createHmac("sha256", process.env.PASSWORD_SECRET)
+    .update(this.password)
+    .digest("hex");
+});
+
+const User = model("User", userSchema);
+module.exports = User;
