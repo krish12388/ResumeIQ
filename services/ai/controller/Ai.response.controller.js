@@ -1,9 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import {TinyFish} from '@tiny-fish/sdk';
 import axios from 'axios';
-const client = new TinyFish({ apiKey: process.env.TINYFISH_API_KEY });
 const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
 const interviewReportSchema = z.object({
@@ -295,8 +293,6 @@ Rules:
         error: parsed.error.issues,
       };
     }
-
-    console.log(parsed.data);
     return parsed.data;
   } catch (error) {
     console.log(error);

@@ -37,6 +37,7 @@ async function interviewController(req, res) {
       resumeText: resumeText,
       jobDescription: jobDescription,
       selfDescription: selfDescription,
+      location: interviewReportbyAi.location,
       ...interviewReportbyAi,
     });
     res.status(201).json({

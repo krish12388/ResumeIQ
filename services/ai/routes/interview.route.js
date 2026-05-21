@@ -1,8 +1,30 @@
 //using import statement
+import jwt from 'jsonwebtoken';
 import express from 'express';
-import userIsAuthenticated from "../../shared/middlewares/isAuthenticated.js";
 import {interviewController,roastResume, getInterviewReportById, getAllInterviewReportsByUserId, getJobsByTitle} from "../controller/interviewController.js";
 import fileMiddleware from "../middlewares/file.middleware.js";
+import dotenv from "dotenv";
+dotenv.config({path:"./ai.env"});
+
+const userIsAuthenticated = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    if(!req.user.id || !req.user.email){
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    req.userId = decoded.id;
+    next();
+  } catch (err) {
+    console.log(err);
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+};
+
 const interviewRouter = express.Router();
 /**
  * @description: takes job description, resume text, self description from frontend and returns the interview report

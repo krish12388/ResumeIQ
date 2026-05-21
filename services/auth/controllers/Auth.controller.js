@@ -4,7 +4,8 @@ const { createHmac } = require("node:crypto");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const { oauth2Client } = require("../config/googleLoginConfig");
-
+const dotenv = require("dotenv");
+require("dotenv").config();
 
 const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
@@ -27,7 +28,11 @@ exports.register = async (req, res) => {
     }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: false,
+  sameSite: "none", 
+});
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
@@ -49,44 +54,68 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     if (!email || !password) {
-      return res.json(
-        { success: false, message: "Please provide email and password" },
-        400,
-      );
+      return res.status(400).json({
+        success: false,
+        message: "Please provide email and password",
+      });
     }
+
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.json({ success: false, message: "User not found" }, 404);
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
-    const decriptedPass = createHmac("sha256", process.env.PASSWORD_SECRET)
+
+    const encryptedPass = createHmac(
+      "sha256",
+      process.env.PASSWORD_SECRET
+    )
       .update(password)
       .digest("hex");
-    if (decriptedPass != user.password) {
-      return res.json({ success: false, message: "Invalid password" }, 401);
+
+    if (encryptedPass !== user.password) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid password",
+      });
     }
+
     const payload = {
       name: user.name,
       email: user.email,
       id: user._id,
       profileImage: user.profileImage,
     };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+
+    const token = jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none", 
     });
-    res.cookie("token", token, { httpOnly: true });
+
     return res.status(200).json({
       success: true,
       message: "Login successful",
-      user: {
-        name: user.name,
-        email: user.email,
-        id: user._id,
-      }
+      user: payload,
     });
+
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -135,7 +164,11 @@ exports.loginWithGoogle = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none", 
+    });
     //log the details for debugging => to be deleted later
     console.log(token);
     console.log(user);
