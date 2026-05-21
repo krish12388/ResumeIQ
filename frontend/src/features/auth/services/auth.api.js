@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useGoogleLogin } from "@react-oauth/google";
 const authInstance= axios.create({
   baseURL: "http://localhost:3001/api/user",
   withCredentials: true,
@@ -65,12 +64,7 @@ async function getCurrentUser() {
 
 async function loginWithGoogle(code){
       try {
-      const result = await axios.post("http://localhost:3001/api/user/login-with-google", {
-        code: code,
-      });
-      console.log("googleReasponse");
-      localStorage.setItem("token", result.data.token);
-      
+      const result = await authInstance.post("/login-with-google", { code });
       return result.data;
     } catch (e) {
       console.log(e);

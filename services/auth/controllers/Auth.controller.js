@@ -155,23 +155,26 @@ exports.loginWithGoogle = async (req, res) => {
         image: picture,
       });
     }
-    const payload = {
+     const payload = {
+      name: user.name,
       email: user.email,
       id: user._id,
+      profileImage: user.profileImage,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
       sameSite: "lax", 
     });
-    //log the details for debugging => to be deleted later
-    console.log(token);
-    console.log(user);
     return res.status(200).json({
       success: true,
       message: "Login with Google successful",

@@ -8,25 +8,22 @@ function AuthProvider({ children }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = await getCurrentUser();
-        if (data && data.success) {
-          setUser(data.user);
-        }
-        if(!data){
-          setUser(null);
-          setError(data?.message);
-        }
-      } catch (err) {
-        console.log("No active session found");
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchUser = async () => {
+    try {
+      const data = await getCurrentUser();
+      if (data?.success) {
+        setUser(data.user);
+      } else {
+        setUser(null); // no active session, that's fine
       }
-    };
-    fetchUser();
-  }, []);
+    } catch (err) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchUser();
+}, []);
 
   const value = {user,setUser,loading,setLoading,error,setError};
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>; 
