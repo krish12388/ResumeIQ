@@ -31,7 +31,7 @@ exports.register = async (req, res) => {
     res.cookie("token", token, {
   httpOnly: true,
   secure: false,
-  sameSite: "none", 
+  sameSite: "lax", 
 });
     return res.status(201).json({
       success: true,
@@ -103,7 +103,7 @@ exports.login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "none", 
+      sameSite: "lax", 
     });
 
     return res.status(200).json({
@@ -167,7 +167,7 @@ exports.loginWithGoogle = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "none", 
+      sameSite: "lax", 
     });
     //log the details for debugging => to be deleted later
     console.log(token);

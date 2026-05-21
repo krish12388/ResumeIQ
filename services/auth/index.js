@@ -5,8 +5,6 @@ const userRoutes = require("./routes/user.route");
 const cookieParser = require("cookie-parser");
 const { userIsAuthenticated } = require("./middlewares/Auth.middleware");
 const cors = require("cors");
-
-
 require("dotenv").config();
 const app = express();
 app.use(cookieParser());
@@ -23,7 +21,7 @@ if (dbConnect()) {
   app.use("/api/user", userRoutes);
   const PORT = process.env.PORT || 8000;
 
-  app.listen(PORT, () => {
+  app.listen(PORT, "0.0.0.0",() => {
     console.log(`Server running on port ${PORT}`);
   });
 }

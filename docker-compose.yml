@@ -1,15 +1,17 @@
-version: '3.8'
+
 
 services:
   frontend:
     build:
       context: ./frontend
+    container_name: ResumeIQ_frontend
     ports:
       - "5173:5173"
     env_file:
-      - ./frontend/.env
+      - ./frontend/frontend.env
     environment:
       NODE_ENV: development
+      PORT: 5173
     volumes:
       - ./frontend:/app
       - /app/node_modules
