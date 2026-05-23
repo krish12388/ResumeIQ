@@ -160,7 +160,8 @@ function LoginForm({ handleLogin, handleGoogleLogin, loading, error }) {
               className="h-[40px] w-[160px] flex items-center justify-center hover:bg-[#222] transition-colors"
               onClick={(e) => {
                 e.preventDefault();
-                handleGoogleLogin();
+                const data = await handleGoogleLogin();
+                if (data?.success) navigate("/");
               }}
               style={{
                 backgroundColor: "#181818",

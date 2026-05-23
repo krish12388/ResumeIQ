@@ -80,7 +80,7 @@ function useAuth() {
         const data = await loginWithGoogle(codeResponse.code);
         setUser(data.user);
         setError(null);
-        navigate("/"); 
+        return data; 
       } catch (err) {
         setError(err.message || "Something went wrong");
       } finally {
