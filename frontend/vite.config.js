@@ -4,13 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://auth-service:3001',
-        changeOrigin: true,
-      }
-    }
-  }
+  plugins: [react(), tailwindcss()], define: {
+    // makes import.meta.env.VITE_AUTH_BASE_URL available in the code
+    'process.env': process.env,
+  },
 })

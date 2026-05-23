@@ -1,8 +1,8 @@
 import axios from "axios";
-const authInstance= axios.create({
-  baseURL: "http://localhost:3001/api/user",
+const authInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_AUTH_BASE_URL}/api/user`,
   withCredentials: true,
-})
+});
 
 async function register({ name, email, password }) {
   try {

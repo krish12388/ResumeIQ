@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const aiInstance = axios.create({
-    baseURL: "http://localhost:3002/api/ai",
+    baseURL: `${import.meta.env.VITE_AI_BASE_URL}/api/ai`,
     withCredentials: true,
 })
 
@@ -43,7 +43,9 @@ async function getAllInterviewReportsByUserId(userId){
 }
 async function getJobsByTitle(title,location){
   try {
-    const response = await aiInstance.get(`/jobs/${title}/${location}`)
+    const response = await aiInstance.get('/jobs', {
+      params: { title, location }
+    })
     return response.data
   } catch (error) {
     console.log("Error in fetching jobs",error)

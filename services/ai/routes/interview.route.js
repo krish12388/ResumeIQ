@@ -49,7 +49,7 @@ interviewRouter.get('/reports/all/:id',userIsAuthenticated, getAllInterviewRepor
  * @route: GET /interview
  * @access:authenticated user 
  */
-interviewRouter.get('/jobs/:title/:location',userIsAuthenticated, getJobsByTitle);
+interviewRouter.get('/jobs',userIsAuthenticated, getJobsByTitle);
 /**
  * @description: takes resume and resume text from frontend and returns the resume roast
  * @route: POST /interview

@@ -44,3 +44,4 @@ coverage/
 *.env
 auth.env
 ai.env
+.env

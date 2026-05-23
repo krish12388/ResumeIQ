@@ -13,10 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: ["http://localhost:5173","http://localhost:5175", "http://localhost:3001","http://localhost:5175"], credentials: true }));
 
 if (dbConnect()) {
-  const PORT = process.env.PORT || 8001;
-  app.get("/", (req, res) => {
-    res.send("Hello World!");
-  });
+  const PORT = process.env.PORT || 3002;
   app.use("/api/ai", interviewRouter);
   app.listen(PORT,"0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);

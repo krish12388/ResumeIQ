@@ -10,6 +10,7 @@ import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import Docs from "./pages/Docs";
 import RoastMyResume from "./features/ai/pages/RoastMyResume";
+import UserProfile from "./features/auth/pages/UserProfile";
 
 /**
  * @returns {object} router
@@ -48,5 +49,8 @@ export const router = createBrowserRouter([
     },{
         path: "/roast-my-resume",
         element: <Protected><RoastMyResume /></Protected>
+    },{
+        path: "/profile",
+        element: <Protected><UserProfile /></Protected>
     }
 ]);

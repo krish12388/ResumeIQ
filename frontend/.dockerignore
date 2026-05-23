@@ -1,6 +1,12 @@
 node_modules
-frontend.env
+dist
 .git
+*.env
+*.env.*
+.env
 Dockerfile
 docker-compose.yml
-*.env
+README.md
+*.log
+coverage
+.vscode

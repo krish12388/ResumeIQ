@@ -31,17 +31,27 @@ const Navbar = () => {
         </div>
         <div className="nav-right">
           {user ? (
-            <button
-              onClick={onLogout}
-              className="nav-btn text-white"
-              style={{
-                background: "#ef4444",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Logout
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <button className="nav-btn text-white"
+                style={{
+                  background: "#e87e36ff",
+                  border: "none",
+                  cursor: "pointer",
+                }}><Link to="/profile" className="nav-signin">
+                Profile
+              </Link></button>
+              <button
+                onClick={onLogout}
+                className="nav-btn text-white"
+                style={{
+                  background: "#ef4444",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <>
               <Link to="/login" className="nav-signin">

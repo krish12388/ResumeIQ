@@ -4,7 +4,7 @@ dotenv.config({path:"./ai.env"})
 
 const dbConnect = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI)
+        await mongoose.connect(process.env.MONGODB_URI_AI)
         return true;
     } catch (error) {
         console.error('MongoDB connection failed:', error.message)

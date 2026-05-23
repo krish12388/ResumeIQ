@@ -106,7 +106,7 @@ export async function getInterviewReportById(req, res) {
 }
 export async function getJobsByTitle(req, res) {
   try {
-    const { title, location } = req.params;
+    const { title, location } = req.query;  
 
     if (!title || !location) {
       return res.status(400).json({
@@ -179,4 +179,5 @@ export async function roastResume(req, res) {
     });
   }
 }
+
 export { interviewController };
