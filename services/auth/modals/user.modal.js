@@ -27,7 +27,7 @@ const userSchema = new Schema({
   },
 });
 userSchema.pre("save", function(next) {
-  if (!this.password) return next();  // Google users have no password
+  if (!this.password || !this.isModified("password")) return next();
   
   this.password = createHmac("sha256", process.env.PASSWORD_SECRET)
     .update(this.password)
