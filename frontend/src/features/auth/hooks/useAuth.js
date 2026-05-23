@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../auth.context.jsx";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router";
 import {
   login,
   register,
@@ -10,6 +11,7 @@ import {
 } from "../services/auth.api.js";
 
 function useAuth() {
+  const navigate = useNavigate();
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
@@ -76,7 +78,6 @@ function useAuth() {
       try {
         setLoading(true);
         const data = await loginWithGoogle(codeResponse.code);
-        console.log(data);
         setUser(data.user);
         setError(null);
         navigate("/"); 
