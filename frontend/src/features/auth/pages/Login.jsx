@@ -4,7 +4,7 @@ import {useAuth} from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 function Login() {
-  const {handleLogin,loading,error,handleGoogleLogin}=useAuth();
+  const {handleLogin,loading,error,handleGoogleLogin,user}=useAuth();
   useEffect(() => {
     if (user) navigate("/");
   }, [user]);
