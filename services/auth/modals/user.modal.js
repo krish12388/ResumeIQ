@@ -26,13 +26,13 @@ const userSchema = new Schema({
     default: "",
   },
 });
-userSchema.pre("save", function(next) {
-  if (!this.password || !this.isModified("password")) return next();
+userSchema.pre("save", function(done) {
+  if (!this.password || !this.isModified("password")) return done();
   
   this.password = createHmac("sha256", process.env.PASSWORD_SECRET)
     .update(this.password)
     .digest("hex");
-  next();
+  done();
 });
 
 const User = model("User", userSchema);
