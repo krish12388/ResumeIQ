@@ -18,14 +18,14 @@
 
 <br/>
 
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express_5-000000?style=flat-square&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat-square&logo=mongodb&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS_4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=flat-square&logo=docker&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=flat-square&logo=google&logoColor=white)
 
 </div>
 
@@ -50,7 +50,6 @@
 - [Environment Variables](#-environment-variables)
 - [API Workflow](#-api-workflow)
 - [Performance & UX](#-performance--ux)
-- [Developer Experience](#-developer-experience)
 - [Security Considerations](#-security-considerations)
 - [Challenges Faced During Development](#-challenges-faced-during-development)
 - [Future Improvements](#-future-improvements)
@@ -95,8 +94,9 @@ The core insight is simple — *your resume, your job search, and your interview
 - 🧠 Contextual AI that *understands your specific resume*, not generic advice
 - 🗂️ Centralized job discovery so you stop tab-switching
 - 🔥 Resume Roast — because brutal honesty sometimes lands harder than polished feedback
-- 🏗️ Production-grade microservices architecture, built to scale
+- 🏗️ Clean microservices architecture across dedicated Node.js services
 - 🐳 Fully Dockerized for consistent deployment across any environment
+- 🔐 Google OAuth integration for frictionless sign-in
 
 ---
 
@@ -115,7 +115,7 @@ The core insight is simple — *your resume, your job search, and your interview
 | Interview Report Generation | ✅ | ❌ |
 | Resume Roast Mode | ✅ 🔥 | ❌ |
 | Real-time Feedback | ✅ | ❌ |
-| Microservices Architecture | ✅ | ❌ |
+| Google OAuth Sign-In | ✅ | ❌ |
 | Dockerized Deployment | ✅ | ❌ |
 | Smooth Scrolling UX (Lenis) | ✅ | ❌ |
 | Open Source | ✅ | ❌ |
@@ -131,7 +131,7 @@ Traditional job searches are scattered. Candidates visit LinkedIn, Indeed, Naukr
 ## 🚀 Key Features
 
 ### 1. 🤖 AI Resume Analysis
-Powered by advanced language models, ResumeIQ performs a deep-dive analysis of your resume — identifying skill gaps, weak action verbs, missing keywords, formatting issues, and overall impact. It doesn't just scan; it *understands* your career narrative.
+Powered by **Google Gemini**, ResumeIQ performs a deep-dive analysis of your resume — identifying skill gaps, weak action verbs, missing keywords, formatting issues, and overall impact. It doesn't just scan; it *understands* your career narrative.
 
 ### 2. 🎯 ATS Compatibility Scoring
 Modern recruitment runs through Applicant Tracking Systems that reject resumes before a human ever reads them. ResumeIQ simulates ATS parsing, scores your resume on keyword density, formatting compliance, section completeness, and role alignment — giving you a percentage score with actionable fixes.
@@ -140,30 +140,27 @@ Modern recruitment runs through Applicant Tracking Systems that reject resumes b
 Every weakness identified comes with a concrete AI-generated improvement. Want a better summary line? Need to quantify your achievements? ResumeIQ suggests specific rewrites, not vague advice.
 
 ### 4. 🗺️ Centralized Job Discovery System
-A unified job discovery panel aggregates opportunities from multiple sources, filtered and matched against your resume profile. One platform, zero tab-switching.
+A unified job discovery panel powered by **SerpApi** aggregates job opportunities matched against your resume profile. One platform, zero tab-switching.
 
 ### 5. 🎤 Interview Report Generation
 After resume analysis, ResumeIQ generates a personalized interview preparation report — anticipating questions a recruiter might ask based on your resume gaps, role target, and experience level.
 
 ### 6. 🔥 Resume Roast Feature
-*The crowd favorite.* When you need brutal honesty instead of polished corporate feedback, hit **Roast My Resume**. Our AI tears into your resume with sharp, witty, painfully accurate commentary. It's the feedback your friends were too kind to give you — wrapped in humor, packed with truth, and surprisingly actionable. Consider it a career intervention you didn't know you needed.
+*The crowd favorite.* When you need brutal honesty instead of polished corporate feedback, hit **Roast My Resume**. Our AI tears into your resume with sharp, witty, painfully accurate commentary. It's the feedback your friends were too kind to give you — wrapped in humor, packed with truth, and surprisingly actionable.
 
 > *"Your resume says 'team player' in 2024. Bold choice."* — ResumeIQ Roast Engine
 
 ### 7. 🌊 Smooth UX with Lenis Scroll
 ResumeIQ uses **Lenis** — a high-performance smooth scrolling library — to deliver a buttery, momentum-based scrolling experience. Every page transition feels intentional. Every scroll feels alive.
 
-### 8. 🔐 Authentication & User Sessions
-Secure JWT-based authentication with session management ensures your resume data, analysis history, and job tracking are private and persistent across sessions.
+### 8. 🔐 Authentication & Google OAuth
+Secure **JWT-based authentication** with **Google OAuth** (`@react-oauth/google` + `googleapis`) lets users sign in quickly. Session management ensures your resume data, analysis history, and job tracking are private and persistent.
 
 ### 9. ⚡ Real-Time Feedback Loop
 AI analysis results are streamed and rendered in real-time — no waiting on full-page reloads. Users see their scores, suggestions, and roast feedback as it generates.
 
-### 10. 🐳 Microservice Communication
-Each service (resume analysis, job discovery, interview report, authentication) runs as an independent containerized microservice with defined API contracts — enabling parallel development, independent scaling, and fault isolation.
-
-### 11. 🏗️ Dockerized Deployment
-The entire platform runs inside Docker containers orchestrated with Docker Compose. One command spins up the full stack — frontend, backend, AI services, and database — in a perfectly configured, reproducible environment.
+### 10. 🐳 Dockerized Deployment
+Each service runs inside a Docker container built on **Node 22 Alpine** and deployed as a lean **distroless Node 22** image. Docker Compose orchestrates the full stack with a single command.
 
 ---
 
@@ -190,126 +187,117 @@ The entire platform runs inside Docker containers orchestrated with Docker Compo
 
 | Technology | Purpose | Version |
 |---|---|---|
-| React | UI Framework | 18.x |
-| TypeScript | Type Safety | 5.x |
-| Tailwind CSS | Utility-first Styling | 3.x |
-| Lenis | Smooth Scroll Animation | Latest |
-| Framer Motion | UI Transitions & Animations | 11.x |
-| React Router | Client-side Routing | 6.x |
+| React | UI Framework | 19.x |
+| Vite | Build Tool & Dev Server | 8.x |
+| Tailwind CSS | Utility-first Styling | 4.x |
+| Lenis | Smooth Scroll Animation | 1.x |
+| React Router | Client-side Routing | 7.x |
 | Axios | HTTP Client | 1.x |
-| Zustand | Global State Management | 4.x |
-| React Hook Form | Form Handling | 7.x |
-| Vite | Build Tool & Dev Server | 5.x |
+| Recharts | Data Visualization / Charts | 3.x |
+| React Hot Toast | Toast Notifications | 2.x |
+| @react-oauth/google | Google OAuth Sign-In | 0.13.x |
 
-### Backend
+> **Note:** The frontend is written in plain **JavaScript** (not TypeScript). No Zustand, no Framer Motion, no React Hook Form.
+
+### Auth Service (Node.js)
 
 | Technology | Purpose | Version |
 |---|---|---|
-| Node.js | Runtime Environment | 20.x |
-| Express.js | REST API Framework | 4.x |
-| MongoDB | Primary NoSQL Database | 7.x |
-| Mongoose | ODM for MongoDB | 8.x |
-| JWT | Authentication Tokens | 9.x |
-| Bcrypt | Password Hashing | 5.x |
-| Multer | File Upload Handling | 1.x |
+| Node.js | Runtime Environment | 22.x |
+| Express.js | REST API Framework | 5.x |
+| MongoDB | Primary NoSQL Database | — |
+| Mongoose | ODM for MongoDB | 9.x |
+| JWT (`jsonwebtoken`) | Authentication Tokens | 9.x |
+| Bcrypt | Password Hashing | 6.x |
+| googleapis | Google OAuth verification | 171.x |
+| cookie-parser | Cookie Handling | 1.x |
 | CORS | Cross-Origin Security | 2.x |
 
-### AI / LLM Services
+### Main / AI Service (Node.js)
 
-| Technology | Purpose |
-|---|---|
-| Google Gemini API | Resume Analysis, Roast Engine, Suggestions |
-| LangChain | LLM Orchestration Layer |
-| Python | AI Service Runtime |
-| FastAPI | AI Microservice Endpoints |
-| PDF-Parse / PyMuPDF | Resume Document Parsing |
+| Technology | Purpose | Version |
+|---|---|---|
+| Node.js | Runtime Environment | 22.x |
+| Express.js | REST API Framework | 5.x |
+| @google/genai | Google Gemini AI SDK | 2.x |
+| pdf-parse | PDF Text Extraction | 2.x |
+| Multer | File Upload Handling | 2.x |
+| Zod | Input Validation & Schema | 4.x |
+| zod-to-json-schema | Schema serialization for AI | 3.x |
+| Mongoose | ODM for MongoDB | 9.x |
+| serpapi | Job Discovery via Search API | 2.x |
+
+> **Note:** There is **no Python service, no FastAPI, and no LangChain** in this project. All AI logic runs through the Node.js main service using the `@google/genai` SDK directly.
 
 ### DevOps & Infrastructure
 
 | Technology | Purpose |
 |---|---|
-| Docker | Containerization |
+| Docker | Containerization (Node 22 Alpine → Distroless Node 22) |
 | Docker Compose | Multi-service Orchestration |
 | Render | Cloud Deployment Platform |
-| GitHub | Version Control & CI |
+| GitHub | Version Control |
 | dotenv | Environment Variable Management |
-
-### Styling & Animation
-
-| Technology | Role |
-|---|---|
-| Tailwind CSS | Responsive utility-first styles |
-| Lenis | Physics-based smooth scrolling |
-| Framer Motion | Declarative animation library |
-| Lucide React | Icon system |
+| nodemon | Development Hot Reload |
 
 ---
 
 ## 🏗️ Architecture
 
-### Why Microservices?
+### Service Overview
 
-ResumeIQ was architected as a **microservices-based platform** from day one. Here's the reasoning:
-
-```
-Monolith Problem:
-─────────────────
-One codebase → All features tightly coupled →
-One bug crashes everything → Hard to scale specific parts →
-Slow deployments → Developer bottlenecks
-
-Microservices Solution:
-────────────────────────
-Independent services → Each does ONE thing well →
-Independent deployments → Scale only what's needed →
-Fault isolation → Teams can develop in parallel
-```
-
-### Architecture Benefits
-
-| Benefit | Description |
-|---|---|
-| 🔒 **Fault Isolation** | If the Roast service goes down, Resume Analysis keeps running |
-| 📈 **Independent Scaling** | Scale the AI service 3x without touching auth or frontend |
-| 🚀 **Independent Deployments** | Deploy new interview feature without redeploying the whole app |
-| 🧩 **Separation of Concerns** | Each service owns its domain, its data, its logic |
-| 🛠️ **Technology Flexibility** | AI service uses Python/FastAPI; API gateway uses Node/Express |
-| 👥 **Parallel Development** | Multiple developers can own individual services simultaneously |
-
-### High-Level Architecture Flow
+ResumeIQ is split into three independent Node.js services plus a React frontend:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         CLIENT LAYER                            │
-│           React + TypeScript + Lenis + Tailwind                 │
-│                    (Vite Dev / Production Build)                 │
+│          React 19 + Tailwind CSS 4 + Lenis + Vite 8             │
 └──────────────────────────┬──────────────────────────────────────┘
                            │ HTTPS / REST
                            ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        API GATEWAY                              │
-│              Express.js (Node.js) — Port 5000                   │
-│         Auth Middleware | Rate Limiting | CORS | Routing        │
-└────┬──────────────┬──────────────┬──────────────┬──────────────┘
-     │              │              │              │
-     ▼              ▼              ▼              ▼
-┌─────────┐  ┌───────────┐  ┌──────────┐  ┌──────────────┐
-│  Auth   │  │  Resume   │  │   Job    │  │  Interview   │
-│ Service │  │  AI Svc   │  │Discovery │  │  Report Svc  │
-│ (Node)  │  │ (Python)  │  │  (Node)  │  │  (Python)    │
-└────┬────┘  └─────┬─────┘  └─────┬────┘  └──────┬───────┘
-     │             │              │               │
-     ▼             ▼              ▼               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                         DATA LAYER                              │
-│                MongoDB (Dockerized Instance)                    │
-└─────────────────────────────────────────────────────────────────┘
+           ┌───────────────────────────────┐
+           │         Auth Service          │
+           │    Express 5 (Node.js 22)     │
+           │  JWT · Bcrypt · Google OAuth  │
+           └───────────────────────────────┘
                            │
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      EXTERNAL APIS                              │
-│            Google Gemini API | Job Board APIs                   │
-└─────────────────────────────────────────────────────────────────┘
+           ┌───────────────────────────────┐
+           │        Main / AI Service      │
+           │    Express 5 (Node.js 22)     │
+           │  Gemini · pdf-parse · Multer  │
+           │  SerpApi · Zod · Mongoose     │
+           └───────────────────────────────┘
+                           │
+           ┌───────────────────────────────┐
+           │           Data Layer          │
+           │      MongoDB (Mongoose)       │
+           └───────────────────────────────┘
+                           │
+           ┌───────────────────────────────┐
+           │         External APIs         │
+           │   Google Gemini · SerpApi     │
+           │   Google OAuth                │
+           └───────────────────────────────┘
+```
+
+### Docker Container Architecture
+
+Each service is containerized with a multi-stage build: **Node 22 Alpine** for building (with devDependencies stripped via `npm ci --omit=dev`), then copied into a lean **distroless Node 22 Debian12** image for production.
+
+```
+┌─────────────────────────────────────────────────┐
+│               Docker Network: resumeiq-net       │
+│                                                   │
+│  ┌──────────┐  ┌──────────┐  ┌────────────────┐  │
+│  │ frontend │  │   auth   │  │  main/ai-svc   │  │
+│  │  :5173   │  │  :3001   │  │     :3002      │  │
+│  └──────────┘  └──────────┘  └────────────────┘  │
+│                     │                             │
+│              ┌──────────────┐                     │
+│              │   mongodb    │                     │
+│              │   :27017     │                     │
+│              └──────────────┘                     │
+└─────────────────────────────────────────────────┘
 ```
 
 ---
@@ -324,35 +312,33 @@ Fault isolation → Teams can develop in parallel
 ```
 1. User uploads PDF resume via frontend (multipart/form-data)
         ↓
-2. API Gateway receives upload → Multer processes file
+2. Main Service receives upload → Multer processes the file
         ↓
-3. File forwarded to AI Microservice (Python/FastAPI)
+3. pdf-parse extracts raw text from the PDF
         ↓
-4. PyMuPDF/PDF-Parse extracts raw text from document
+4. Extracted text + job role context sent to Google Gemini
+   via @google/genai SDK with Zod-validated structured output
         ↓
-5. Extracted text + job role context sent to Gemini API via LangChain
+5. Gemini returns structured JSON: { score, weaknesses, suggestions, keywords }
         ↓
-6. Gemini returns structured JSON: { score, weaknesses, suggestions, keywords }
+6. Result stored in MongoDB (Mongoose) with user session reference
         ↓
-7. Result stored in MongoDB with user session reference
+7. Response streamed back to frontend for real-time rendering
         ↓
-8. Response streamed back to frontend for real-time rendering
-        ↓
-9. User sees live ATS score, suggestions, and optional Roast feedback
+8. User sees live ATS score, suggestions, and optional Roast feedback
 ```
 
-### Service Communication Model
+### Input Validation
 
-- Services communicate over **Docker's internal bridge network**
-- Service discovery via Docker Compose **service names as hostnames**
-- All inter-service calls are internal HTTP (not exposed publicly)
-- Only the API Gateway is publicly exposed
+All API inputs are validated with **Zod** schemas before any processing. `zod-to-json-schema` is used to serialize schemas into JSON Schema format, which can be passed to Gemini to enforce structured output.
 
-### Database Design Philosophy
+### Job Discovery
 
-- MongoDB chosen for **schema flexibility** — resume structures vary wildly
-- Each user document references analysis history, job saves, and session data
-- Job discovery results are **ephemeral** (not stored) — fetched and filtered at request time
+Job listings are fetched on-demand via **SerpApi** (`serpapi` package used on both frontend and main service). Results are filtered against the user's resume keywords at request time and are **not persisted** to MongoDB.
+
+### Authentication Flow
+
+The auth service handles all user registration, login, and Google OAuth token verification (`googleapis`). It issues JWTs that the main service validates on protected routes.
 
 </details>
 
@@ -363,144 +349,84 @@ Fault isolation → Teams can develop in parallel
 ```bash
 ResumeIQ/
 │
-├── frontend/                          # React + TypeScript + Vite frontend
+├── frontend/                          # React 19 + Vite 8 frontend
 │   ├── public/
 │   │   └── assets/                    # Static images, icons, fonts
 │   ├── src/
 │   │   ├── components/                # Reusable UI components
 │   │   │   ├── ui/                    # Base design system components
-│   │   │   │   ├── Button.tsx
-│   │   │   │   ├── Card.tsx
-│   │   │   │   ├── Modal.tsx
-│   │   │   │   ├── Badge.tsx
-│   │   │   │   └── Spinner.tsx
-│   │   │   ├── layout/               # Layout wrappers
-│   │   │   │   ├── Navbar.tsx
-│   │   │   │   ├── Footer.tsx
-│   │   │   │   └── PageWrapper.tsx
-│   │   │   ├── resume/               # Resume-specific components
-│   │   │   │   ├── ResumeUploader.tsx
-│   │   │   │   ├── AnalysisCard.tsx
-│   │   │   │   ├── ATSScoreChart.tsx
-│   │   │   │   ├── SuggestionList.tsx
-│   │   │   │   └── RoastPanel.tsx
-│   │   │   ├── jobs/                 # Job discovery components
-│   │   │   │   ├── JobCard.tsx
-│   │   │   │   ├── JobFilters.tsx
-│   │   │   │   └── JobGrid.tsx
-│   │   │   └── interview/            # Interview report components
-│   │   │       ├── ReportCard.tsx
-│   │   │       └── QuestionList.tsx
+│   │   │   ├── layout/               # Navbar, Footer, PageWrapper
+│   │   │   ├── resume/               # ResumeUploader, ATSScoreChart, RoastPanel
+│   │   │   ├── jobs/                 # JobCard, JobFilters, JobGrid
+│   │   │   └── interview/            # ReportCard, QuestionList
 │   │   ├── pages/                    # Route-level page components
-│   │   │   ├── Home.tsx
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── ResumeAnalysis.tsx
-│   │   │   ├── JobDiscovery.tsx
-│   │   │   ├── InterviewReport.tsx
-│   │   │   ├── ResumeRoast.tsx
-│   │   │   ├── Login.tsx
-│   │   │   └── Register.tsx
-│   │   ├── store/                    # Zustand state management
-│   │   │   ├── authStore.ts
-│   │   │   ├── resumeStore.ts
-│   │   │   └── jobStore.ts
-│   │   ├── hooks/                    # Custom React hooks
-│   │   │   ├── useAuth.ts
-│   │   │   ├── useResumeAnalysis.ts
-│   │   │   └── useSmoothScroll.ts
-│   │   ├── services/                 # API service clients
-│   │   │   ├── api.ts                # Axios base client
-│   │   │   ├── resumeService.ts
-│   │   │   ├── authService.ts
-│   │   │   ├── jobService.ts
-│   │   │   └── interviewService.ts
-│   │   ├── utils/                    # Utility functions
-│   │   │   ├── lenis.ts              # Lenis smooth scroll initializer
-│   │   │   ├── formatters.ts
-│   │   │   └── validators.ts
-│   │   ├── types/                    # TypeScript type definitions
-│   │   │   ├── resume.types.ts
-│   │   │   ├── job.types.ts
-│   │   │   └── auth.types.ts
-│   │   ├── App.tsx
-│   │   ├── main.tsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── ResumeAnalysis.jsx
+│   │   │   ├── JobDiscovery.jsx
+│   │   │   ├── InterviewReport.jsx
+│   │   │   ├── ResumeRoast.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Register.jsx
+│   │   ├── services/                 # Axios API clients
+│   │   │   ├── api.js
+│   │   │   ├── resumeService.js
+│   │   │   ├── authService.js
+│   │   │   ├── jobService.js
+│   │   │   └── interviewService.js
+│   │   ├── utils/
+│   │   │   └── lenis.js              # Lenis smooth scroll initializer
+│   │   ├── App.jsx
+│   │   ├── main.jsx
 │   │   └── index.css
 │   ├── .env.example
 │   ├── package.json
-│   ├── tailwind.config.ts
-│   ├── tsconfig.json
-│   ├── vite.config.ts
+│   ├── tailwind.config.js
+│   ├── vite.config.js
 │   └── Dockerfile
 │
-├── backend/                          # Express.js API Gateway
-│   ├── src/
-│   │   ├── controllers/              # Route handler logic
-│   │   │   ├── authController.ts
-│   │   │   ├── resumeController.ts
-│   │   │   ├── jobController.ts
-│   │   │   └── interviewController.ts
-│   │   ├── middleware/               # Express middleware
-│   │   │   ├── authMiddleware.ts
-│   │   │   ├── errorHandler.ts
-│   │   │   ├── rateLimiter.ts
-│   │   │   └── upload.ts
-│   │   ├── models/                   # Mongoose data models
-│   │   │   ├── User.ts
-│   │   │   ├── Resume.ts
-│   │   │   ├── Analysis.ts
-│   │   │   └── InterviewReport.ts
-│   │   ├── routes/                   # Express route definitions
-│   │   │   ├── authRoutes.ts
-│   │   │   ├── resumeRoutes.ts
-│   │   │   ├── jobRoutes.ts
-│   │   │   └── interviewRoutes.ts
-│   │   ├── services/                 # Business logic + service calls
-│   │   │   ├── aiService.ts
-│   │   │   ├── jobAggregator.ts
-│   │   │   └── emailService.ts
-│   │   ├── config/
-│   │   │   ├── db.ts                 # MongoDB connection
-│   │   │   └── env.ts
-│   │   └── app.ts                    # Express app entry
+├── auth-service/                     # Auth microservice (Node.js / Express 5)
+│   ├── index.js                      # App entry point
+│   ├── controllers/
+│   │   └── authController.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   ├── models/
+│   │   └── User.js
+│   ├── routes/
+│   │   └── authRoutes.js
+│   ├── config/
+│   │   └── db.js
 │   ├── .env.example
 │   ├── package.json
-│   ├── tsconfig.json
 │   └── Dockerfile
 │
-├── ai-service/                       # Python FastAPI — AI Engine
-│   ├── app/
-│   │   ├── routers/
-│   │   │   ├── analyze.py            # Resume analysis endpoints
-│   │   │   ├── roast.py              # Resume Roast engine
-│   │   │   ├── ats.py                # ATS scoring logic
-│   │   │   └── interview.py          # Interview report generation
-│   │   ├── services/
-│   │   │   ├── gemini_service.py     # Gemini API integration
-│   │   │   ├── pdf_parser.py         # PDF text extraction
-│   │   │   └── langchain_chains.py   # LangChain prompt chains
-│   │   ├── models/
-│   │   │   ├── request_models.py
-│   │   │   └── response_models.py
-│   │   ├── prompts/                  # Prompt templates
-│   │   │   ├── analyze_prompt.py
-│   │   │   ├── roast_prompt.py
-│   │   │   ├── ats_prompt.py
-│   │   │   └── interview_prompt.py
-│   │   └── main.py                   # FastAPI app entry
-│   ├── requirements.txt
+├── main-service/                     # Main + AI service (Node.js / Express 5)
+│   ├── index.js                      # App entry point
+│   ├── routers/
+│   │   ├── analyze.js                # Resume analysis endpoints
+│   │   ├── roast.js                  # Resume Roast engine
+│   │   ├── ats.js                    # ATS scoring logic
+│   │   ├── interview.js              # Interview report generation
+│   │   └── jobs.js                   # Job discovery via SerpApi
+│   ├── services/
+│   │   ├── geminiService.js          # @google/genai integration
+│   │   └── pdfParser.js              # pdf-parse text extraction
+│   ├── models/
+│   │   ├── Resume.js
+│   │   └── Analysis.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   ├── upload.js                 # Multer config
+│   │   └── validate.js               # Zod validation middleware
 │   ├── .env.example
+│   ├── package.json
 │   └── Dockerfile
 │
 ├── docker/
-│   ├── docker-compose.yml            # Full stack orchestration
-│   ├── docker-compose.dev.yml        # Development overrides
-│   ├── docker-compose.prod.yml       # Production configuration
-│   └── nginx/
-│       └── nginx.conf                # Reverse proxy config (optional)
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml                    # GitHub Actions CI pipeline
+│   ├── docker-compose.yml
+│   ├── docker-compose.dev.yml
+│   └── docker-compose.prod.yml
 │
 ├── .gitignore
 ├── .dockerignore
@@ -514,16 +440,15 @@ ResumeIQ/
 
 ### Prerequisites
 
-Ensure the following are installed on your system:
-
 | Tool | Required Version | Install |
 |---|---|---|
-| Node.js | >= 20.x | [nodejs.org](https://nodejs.org) |
-| npm / pnpm | >= 9.x | Bundled with Node |
-| Python | >= 3.11 | [python.org](https://python.org) |
+| Node.js | >= 22.x | [nodejs.org](https://nodejs.org) |
+| npm | >= 10.x | Bundled with Node |
 | Docker | >= 24.x | [docker.com](https://docker.com) |
 | Docker Compose | >= 2.x | Bundled with Docker Desktop |
 | Git | >= 2.x | [git-scm.com](https://git-scm.com) |
+
+> **No Python required.** All services are Node.js.
 
 ---
 
@@ -538,20 +463,16 @@ cd ResumeIQ
 
 ### 2️⃣ Environment Configuration
 
-Copy the example environment files and fill in your values:
-
 ```bash
 # Frontend
 cp frontend/.env.example frontend/.env
 
-# Backend
-cp backend/.env.example backend/.env
+# Auth Service
+cp auth-service/.env.example auth-service/.env
 
-# AI Service
-cp ai-service/.env.example ai-service/.env
+# Main / AI Service
+cp main-service/.env.example main-service/.env
 ```
-
-> See [Environment Variables](#-environment-variables) section for all required keys.
 
 ---
 
@@ -567,43 +488,36 @@ npm run dev
 
 ---
 
-### 4️⃣ Backend Setup (Manual)
+### 4️⃣ Auth Service Setup (Manual)
 
 ```bash
-cd backend
+cd auth-service
 npm install
 npm run dev
 ```
 
-> Backend API runs at `http://localhost:5000`
-
 ---
 
-### 5️⃣ AI Service Setup (Manual)
+### 5️⃣ Main / AI Service Setup (Manual)
 
 ```bash
-cd ai-service
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+cd main-service
+npm install
+npm run dev
 ```
-
-> AI Service runs at `http://localhost:8000`
 
 ---
 
 ### 6️⃣ Full Stack via Docker (Recommended)
 
 ```bash
-# From the project root
 docker compose -f docker/docker-compose.yml up --build
 ```
 
 This single command starts:
 - ✅ React frontend (port 5173)
-- ✅ Express API gateway (port 5000)
-- ✅ Python AI service (port 8000)
+- ✅ Auth service
+- ✅ Main / AI service (port 3002)
 - ✅ MongoDB instance (port 27017)
 
 ---
@@ -615,87 +529,54 @@ This single command starts:
 ```bash
 cd frontend
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint the codebase
-npm run lint
-
-# Auto-fix lint issues
-npm run lint:fix
-
-# Format with Prettier
-npm run format
-
-# Type check
-npm run type-check
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run preview    # Preview production build
+npm run lint       # Lint the codebase
 ```
 
-### Backend
+### Auth Service
 
 ```bash
-cd backend
+cd auth-service
 
-# Start development server (hot reload)
-npm run dev
-
-# Build TypeScript to JavaScript
-npm run build
-
-# Start compiled production server
-npm start
-
-# Run unit tests
-npm test
-
-# Lint
-npm run lint
+npm run dev        # Start with nodemon (hot reload)
+npm start          # Start production server
 ```
 
-### AI Service
+### Main / AI Service
 
 ```bash
-cd ai-service
+cd main-service
 
-# Start FastAPI dev server
-uvicorn app.main:app --reload --port 8000
-
-# Run with custom host
-uvicorn app.main:app --host 0.0.0.0 --port 8000
-
-# Install new dependency
-pip install <package> && pip freeze > requirements.txt
+npm run dev        # Start with nodemon (hot reload)
 ```
 
 ---
 
 ## 🐳 Docker Section
 
-ResumeIQ uses a **multi-container Docker architecture** orchestrated with Docker Compose. Each service runs in its own isolated container with defined networking, volume mounts, and environment injection.
+### Multi-Stage Dockerfile Pattern
 
-### Architecture at the Container Level
+Every service uses the same optimized pattern:
 
+```dockerfile
+# Stage 1: Build (strips devDependencies)
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+
+# Stage 2: Run (minimal distroless image)
+FROM gcr.io/distroless/nodejs22-debian12
+WORKDIR /app
+COPY --from=builder /app .
+EXPOSE 3002
+CMD ["index.js"]
 ```
-┌─────────────────────────────────────────────────┐
-│               Docker Network: resumeiq-net       │
-│                                                   │
-│  ┌──────────┐  ┌──────────┐  ┌────────────────┐  │
-│  │ frontend │  │ backend  │  │   ai-service   │  │
-│  │  :5173   │  │  :5000   │  │     :8000      │  │
-│  └──────────┘  └──────────┘  └────────────────┘  │
-│                     │                             │
-│              ┌──────────────┐                     │
-│              │   mongodb    │                     │
-│              │   :27017     │                     │
-│              └──────────────┘                     │
-└─────────────────────────────────────────────────┘
-```
+
+This results in lean, secure production images with no shell, no package manager, and no unnecessary tooling.
 
 ### Key Docker Commands
 
@@ -703,7 +584,7 @@ ResumeIQ uses a **multi-container Docker architecture** orchestrated with Docker
 # Build and start all services
 docker compose -f docker/docker-compose.yml up --build
 
-# Start in detached (background) mode
+# Start in detached mode
 docker compose -f docker/docker-compose.yml up -d --build
 
 # Stop all containers
@@ -712,26 +593,14 @@ docker compose -f docker/docker-compose.yml down
 # Stop and remove volumes (fresh DB)
 docker compose -f docker/docker-compose.yml down -v
 
-# View running containers
-docker ps
-
-# View container logs (follow mode)
-docker logs -f resumeiq-backend
-
-# View logs for all services
+# View logs (follow mode)
 docker compose -f docker/docker-compose.yml logs -f
 
 # Rebuild a single service
-docker compose -f docker/docker-compose.yml up --build backend
-
-# Exec into a running container
-docker exec -it resumeiq-backend /bin/bash
+docker compose -f docker/docker-compose.yml up --build main-service
 
 # View resource usage
 docker stats
-
-# Prune unused images and volumes
-docker system prune -af --volumes
 ```
 
 ### Sample `docker-compose.yml`
@@ -747,35 +616,41 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_URL=http://backend:5000
+      - VITE_AUTH_URL=http://auth-service:3001
+      - VITE_API_URL=http://main-service:3002
     depends_on:
-      - backend
+      - auth-service
+      - main-service
     networks:
       - resumeiq-net
 
-  backend:
+  auth-service:
     build:
-      context: ../backend
+      context: ../auth-service
       dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongodb:27017/resumeiq
-      - AI_SERVICE_URL=http://ai-service:8000
+      - JWT_SECRET=${JWT_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     depends_on:
       - mongodb
-      - ai-service
     networks:
       - resumeiq-net
 
-  ai-service:
+  main-service:
     build:
-      context: ../ai-service
+      context: ../main-service
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "3002:3002"
     environment:
+      - MONGO_URI=mongodb://mongodb:27017/resumeiq
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - mongodb
     networks:
       - resumeiq-net
 
@@ -803,59 +678,49 @@ volumes:
 ### Frontend (`frontend/.env`)
 
 ```env
-# API Gateway base URL
-VITE_API_URL=http://localhost:5000/api
-
-# App environment
-VITE_APP_ENV=development
-
-# Optional: Analytics
-VITE_GA_TRACKING_ID=your_ga_tracking_id
+VITE_AUTH_URL=http://localhost:3001/api
+VITE_API_URL=http://localhost:3002/api
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+VITE_SERPAPI_KEY=your_serpapi_key
 ```
 
-### Backend (`backend/.env`)
+### Auth Service (`auth-service/.env`)
 
 ```env
-# Server
-PORT=5000
+PORT=3001
 NODE_ENV=development
 
-# Database
 MONGO_URI=mongodb://localhost:27017/resumeiq
 
-# Authentication
-JWT_SECRET=your_super_secret_jwt_key_here
+JWT_SECRET=your_super_secret_jwt_key
 JWT_EXPIRES_IN=7d
 
-# AI Service URL (internal)
-AI_SERVICE_URL=http://localhost:8000
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-# CORS
 ALLOWED_ORIGINS=http://localhost:5173
+```
+
+### Main / AI Service (`main-service/.env`)
+
+```env
+PORT=3002
+NODE_ENV=development
+
+MONGO_URI=mongodb://localhost:27017/resumeiq
+
+JWT_SECRET=your_super_secret_jwt_key
+
+# Google Gemini
+GEMINI_API_KEY=your_gemini_api_key
+
+# Job Discovery
+SERPAPI_KEY=your_serpapi_key
 
 # File Upload
 MAX_FILE_SIZE_MB=10
-UPLOAD_DIR=./uploads
-```
 
-### AI Service (`ai-service/.env`)
-
-```env
-# Google Gemini API
-GEMINI_API_KEY=your_gemini_api_key_here
-
-# FastAPI settings
-APP_ENV=development
-APP_PORT=8000
-
-# LangChain (optional tracing)
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_API_KEY=your_langchain_api_key
-
-# Model config
-GEMINI_MODEL=gemini-1.5-pro
-MAX_TOKENS=4096
-TEMPERATURE=0.7
+ALLOWED_ORIGINS=http://localhost:5173
 ```
 
 ---
@@ -867,21 +732,13 @@ TEMPERATURE=0.7
 ```
 POST /api/resume/analyze
         │
-        ├── Auth Middleware validates JWT
-        │
+        ├── JWT validated via authMiddleware
         ├── Multer processes uploaded PDF
-        │
-        ├── Backend forwards to AI Service:
-        │       POST http://ai-service:8000/analyze
-        │
-        ├── AI Service:
-        │       ├── Extracts text via PyMuPDF
-        │       ├── Constructs LangChain prompt chain
-        │       ├── Calls Gemini API
-        │       └── Returns structured JSON response
-        │
-        ├── Backend stores result in MongoDB
-        │
+        ├── pdf-parse extracts raw text
+        ├── Zod validates request body
+        ├── @google/genai calls Gemini with structured output schema
+        │       (zod-to-json-schema converts Zod schema → JSON Schema for Gemini)
+        ├── Result stored in MongoDB
         └── Frontend receives and renders analysis
 ```
 
@@ -889,11 +746,9 @@ POST /api/resume/analyze
 
 ```
 POST /api/resume/ats-score
-        │
-        ├── Resume text extracted
+        ├── PDF text extracted via pdf-parse
         ├── Target job role provided by user
-        ├── AI Service compares resume keywords vs. role keywords
-        ├── Generates match percentage + missing keyword list
+        ├── Gemini compares resume keywords vs. role keywords
         └── Returns { score: 78, missing: [...], suggestions: [...] }
 ```
 
@@ -901,10 +756,8 @@ POST /api/resume/ats-score
 
 ```
 POST /api/resume/roast
-        │
-        ├── Same text extraction pipeline
-        ├── Special Roast prompt loaded (witty, brutally honest tone)
-        ├── Gemini generates roast commentary per section
+        ├── Same PDF extraction pipeline
+        ├── Roast-specific prompt sent to Gemini
         └── Returns { roastSections: [...], overallVerdict: "..." }
 ```
 
@@ -912,10 +765,8 @@ POST /api/resume/roast
 
 ```
 GET /api/jobs?role=engineer&location=remote
-        │
-        ├── Backend queries aggregated job sources
-        ├── Filters results against user resume keywords (if provided)
-        ├── Returns ranked job listings
+        ├── SerpApi queried for live job listings
+        ├── Results optionally filtered against resume keywords
         └── Frontend renders job cards with match indicators
 ```
 
@@ -925,10 +776,8 @@ GET /api/jobs?role=engineer&location=remote
 
 ### Smooth Scrolling with Lenis
 
-ResumeIQ uses **Lenis** — an open-source, lightweight smooth scroll library — to replace the browser's default abrupt scroll behavior with physics-based, momentum-driven scrolling.
-
-```typescript
-// utils/lenis.ts
+```javascript
+// utils/lenis.js
 import Lenis from "lenis";
 
 export const initLenis = () => {
@@ -938,7 +787,7 @@ export const initLenis = () => {
     smoothWheel: true,
   });
 
-  function raf(time: number) {
+  function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
   }
@@ -957,24 +806,7 @@ export const initLenis = () => {
 | 🌐 API Caching | Axios request deduplication |
 | 🔄 Optimistic UI | Immediate visual feedback before API resolves |
 | 🗜️ Response Compression | Express compression middleware |
-| 🎯 Targeted Re-renders | Zustand sliced selectors |
-
----
-
-## 👨‍💻 Developer Experience
-
-<details>
-<summary>DX highlights that make contributing easy</summary>
-
-- **TypeScript everywhere** — end-to-end type safety from frontend forms to backend models
-- **Vite dev server** — sub-100ms HMR for instant feedback during UI development
-- **Consistent code style** — ESLint + Prettier configured and enforced via pre-commit hooks
-- **Modular service structure** — each service is independently runnable; no need to spin up the full stack to work on one service
-- **Comprehensive `.env.example` files** — zero guessing on required environment variables
-- **Docker Compose dev overrides** — `docker-compose.dev.yml` enables hot-reload inside containers
-- **Clear API contracts** — all inter-service communication follows documented JSON schemas
-
-</details>
+| 🐳 Lean Docker Images | Distroless Node 22 for minimal attack surface |
 
 ---
 
@@ -982,48 +814,41 @@ export const initLenis = () => {
 
 | Layer | Measure |
 |---|---|
-| 🔑 **Authentication** | JWT tokens with configurable expiry, HTTP-only cookies option |
-| 🔒 **Password Security** | Bcrypt hashing with salting (rounds: 12) |
+| 🔑 **Authentication** | JWT tokens with configurable expiry + Google OAuth via `googleapis` |
+| 🔒 **Password Security** | Bcrypt hashing with salting |
 | 🌐 **CORS Policy** | Strict origin whitelist via environment variable |
-| 🐳 **Container Isolation** | Services communicate only over internal Docker bridge network |
-| 📁 **File Uploads** | Multer validates MIME type, rejects non-PDF files, enforces size limit |
+| 🐳 **Container Security** | Distroless production images — no shell, no package manager |
+| 📁 **File Uploads** | Multer validates MIME type, enforces size limits, rejects non-PDF files |
 | 🔐 **Secrets Management** | All secrets in `.env` files, never committed to version control |
-| 🛡️ **API Rate Limiting** | express-rate-limit applied to auth and AI endpoints |
-| 📊 **Input Validation** | All API inputs validated with Zod schemas before processing |
+| ✅ **Input Validation** | All API inputs validated with Zod schemas before processing |
 
 ---
 
 ## 🧱 Challenges Faced During Development
 
-This section is intentionally candid — these were real walls hit during development, not textbook problems.
+### 1. Docker Networking
 
-### 1. Docker Networking Was a Nightmare at First
-
-The biggest time sink was getting inter-container networking right. Service names as hostnames sounds simple until your AI service can't reach MongoDB because you forgot to add it to the right Docker network. Spent hours debugging `connection refused` errors that turned out to be `networks:` omissions in `docker-compose.yml`. Lesson: **always explicitly define networks for every service.**
+Getting inter-container networking right was the biggest time sink. Service names as hostnames sounds simple until your main service can't reach MongoDB because of missing `networks:` declarations in `docker-compose.yml`. Lesson: **always explicitly define networks for every service.**
 
 ### 2. Docker Compose Service Dependency Ordering
 
-`depends_on` in Docker Compose only waits for a container to *start*, not for the service *inside* it to be *ready*. The backend was crashing on startup because MongoDB's TCP port was open but the replica set wasn't initialized yet. Had to implement health check polling with retry logic in the backend's DB connection code.
+`depends_on` only waits for a container to *start*, not for the service inside to be *ready*. The backend was crashing on startup because MongoDB's TCP port was open but not yet accepting connections. Fixed with retry logic in the DB connection code.
 
-### 3. AI Response Consistency
+### 3. Structured Output from Gemini
 
-Getting Gemini to return *consistently structured* JSON responses — especially for the Roast feature — required significant prompt engineering. Early iterations returned beautifully written roasts... as unstructured markdown prose. Had to invest heavily in prompt templating with explicit output schema instructions and fallback parsing logic.
+Getting Gemini to return consistently structured JSON — especially for the Roast feature — required careful prompt engineering combined with **Zod schemas serialized via `zod-to-json-schema`** to pass explicit output schemas to the model. Early iterations returned beautifully written roasts as unstructured markdown prose.
 
-### 4. Managing Asynchronous Workflows
+### 4. PDF Parsing Edge Cases
 
-The resume analysis pipeline involves: file upload → text extraction → LangChain chain → Gemini API call → MongoDB write → SSE stream to frontend. Each step is async, each can fail independently. Building robust error propagation across this chain without losing context was genuinely hard — required careful `try/catch` boundaries at every service boundary.
+`pdf-parse` handles most PDFs well, but heavily formatted or image-based resumes can produce garbled or empty text. Added fallback handling and user-facing error messaging for unreadable PDFs.
 
-### 5. Scaling Architecture Decisions Mid-Project
+### 5. Google OAuth Across Services
 
-Started with a monolithic Express backend. Midway through, realized that the AI service was creating unbearable coupling — Python LLM logic tangled with Node.js auth logic. The refactor to extract the AI service as a separate FastAPI microservice was painful but worth every hour. The codebase clarity afterward was transformative.
+Coordinating Google OAuth between the frontend (`@react-oauth/google`), the auth service (`googleapis`), and JWT issuance required careful token handoff design to avoid race conditions and token leakage.
 
 ### 6. CORS in Multi-Container Setup
 
-During development, CORS was configured for `localhost`. In Docker, services talk via service names (`http://backend:5000`), not `localhost`. Took an embarrassingly long time to realize the frontend in Docker was hitting a different hostname than expected. Fixed with environment-aware CORS configuration.
-
-### 7. File Upload Across Service Boundaries
-
-Forwarding a multipart file from the Express backend to the FastAPI AI service required streaming the buffer rather than the raw `req.file` object. Getting `form-data` to serialize correctly across the Node → Python boundary took considerable experimentation.
+During development, CORS was configured for `localhost`. In Docker, services communicate via service names, not `localhost`. Fixed with environment-aware CORS configuration using `ALLOWED_ORIGINS`.
 
 ---
 
@@ -1048,103 +873,64 @@ Forwarding a multipart file from the Express backend to the FastAPI AI service r
 
 ### Current Deployment
 
-ResumeIQ is deployed on **Render** — a modern cloud platform with auto-deploy from GitHub, managed SSL, and Docker support.
+ResumeIQ is deployed on **Render** with auto-deploy from GitHub.
 
-| Service | Render Service Type | URL |
-|---|---|---|
-| Frontend | Static Site / Web Service | `resumeiq-frontend-v8en.onrender.com` |
-| Backend | Web Service (Node.js) | Internal |
-| AI Service | Web Service (Python) | Internal |
-| MongoDB | External (MongoDB Atlas) | Internal |
+| Service | Render Service Type |
+|---|---|
+| Frontend | Static Site / Web Service |
+| Auth Service | Web Service (Node.js) |
+| Main / AI Service | Web Service (Node.js) |
+| MongoDB | External (MongoDB Atlas) |
 
 ### Deployment Checklist
 
 ```bash
-# 1. Ensure all .env variables are set in Render's environment panel
-# 2. Build commands configured per service
-# 3. Health check endpoints configured (/health on backend)
-# 4. MongoDB Atlas IP whitelist includes 0.0.0.0/0 or Render outbound IPs
-# 5. Docker builds verified locally before pushing
-```
-
-### Production Build Commands
-
-```bash
-# Frontend production build
-cd frontend && npm run build
-# Output: frontend/dist/
-
-# Backend production
-cd backend && npm run build
-# Output: backend/dist/
-
-# Docker production stack
-docker compose -f docker/docker-compose.prod.yml up -d --build
+# 1. Set all .env variables in Render's environment panel
+# 2. Confirm build commands per service (npm install && npm start)
+# 3. Configure health check endpoints (/health on each service)
+# 4. Whitelist Render outbound IPs in MongoDB Atlas
+# 5. Verify Docker builds locally before pushing
 ```
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are what make the open-source community extraordinary. Every PR, issue, or suggestion makes ResumeIQ better for everyone.
-
 ### Contribution Workflow
 
 ```bash
-# 1. Fork the repository on GitHub
+# 1. Fork the repository
 
 # 2. Clone your fork
 git clone https://github.com/YOUR_USERNAME/ResumeIQ.git
-cd ResumeIQ
 
-# 3. Create a feature branch (use descriptive names)
+# 3. Create a feature branch
 git checkout -b feat/ai-interview-simulator
-# or
-git checkout -b fix/ats-score-calculation
-# or
-git checkout -b docs/update-architecture-diagram
 
-# 4. Make your changes with clean commits
-git add .
+# 4. Commit your changes
 git commit -m "feat(ai): add conversational interview simulator endpoint"
 
-# 5. Push to your fork
+# 5. Push and open a Pull Request
 git push origin feat/ai-interview-simulator
-
-# 6. Open a Pull Request on GitHub
 ```
 
-### Commit Message Convention
-
-This project follows [Conventional Commits](https://www.conventionalcommits.org/):
+### Commit Convention
 
 | Type | When to Use |
 |---|---|
 | `feat:` | New feature |
 | `fix:` | Bug fix |
 | `docs:` | Documentation only |
-| `style:` | Formatting, no logic change |
 | `refactor:` | Code restructure, no feature/fix |
-| `test:` | Adding or updating tests |
 | `chore:` | Build, CI, config changes |
 
 ### Pull Request Guidelines
 
-- ✅ PRs should target the `dev` branch, not `main`
+- ✅ Target the `dev` branch, not `main`
 - ✅ Include a clear description of what changed and why
 - ✅ Add screenshots for UI changes
-- ✅ Ensure your branch is up-to-date with `dev` before opening PR
-- ✅ Run linting and type-check before submitting
+- ✅ Run lint before submitting (`npm run lint`)
 - ✅ Reference related issues with `Closes #issue_number`
-
-### Reporting Issues
-
-When opening an issue, please include:
-1. **Expected behavior**
-2. **Actual behavior**
-3. **Steps to reproduce**
-4. **Environment** (OS, Node version, Docker version)
-5. **Relevant logs or screenshots**
 
 ---
 
@@ -1166,23 +952,19 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 ```
 
-See [LICENSE](./LICENSE) for the full text.
-
 ---
 
 ## 🙏 Acknowledgements
 
-A genuine thank you to the open-source ecosystem that made ResumeIQ possible:
-
 | Project | Contribution |
 |---|---|
-| [Lenis](https://github.com/darkroomengineering/lenis) | The buttery smooth scroll magic |
-| [Google Gemini](https://ai.google.dev/) | The AI brain powering every analysis |
-| [LangChain](https://langchain.com/) | LLM orchestration that actually works |
-| [FastAPI](https://fastapi.tiangolo.com/) | The Python microservice backbone |
-| [Tailwind CSS](https://tailwindcss.com/) | Making styling fast and beautiful |
-| [Framer Motion](https://www.framer.com/motion/) | Animations that feel alive |
-| [MongoDB](https://mongodb.com/) | Flexible data storage at every layer |
+| [Lenis](https://github.com/darkroomengineering/lenis) | Buttery smooth scroll |
+| [Google Gemini](https://ai.google.dev/) | AI brain powering every analysis |
+| [@google/genai](https://www.npmjs.com/package/@google/genai) | Official Gemini Node.js SDK |
+| [SerpApi](https://serpapi.com/) | Job discovery search API |
+| [Tailwind CSS](https://tailwindcss.com/) | Fast, beautiful styling |
+| [Recharts](https://recharts.org/) | ATS score visualizations |
+| [MongoDB](https://mongodb.com/) | Flexible data storage |
 | [Render](https://render.com/) | Deployment that just works |
 | [Docker](https://docker.com/) | Reproducible everything |
 | [Vite](https://vitejs.dev/) | Developer experience at light speed |
