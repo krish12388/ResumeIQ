@@ -4,10 +4,12 @@ dotenv.config();
 userIsAuthenticated = (req, res, next) => {
   // Check Authorization header first, then cookie
   const authHeader = req.headers.authorization;
-  const token = authHeader?.startsWith("Bearer ") 
+  const cookieToken = authHeader?.startsWith("Bearer ") 
     ? authHeader.split(" ")[1] 
     : req.cookies.token;
-
+console.log("Auth header:", authHeader);        // ← add this
+  console.log("Cookie token:", cookieToken);
+  const token=cookieToken;
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
