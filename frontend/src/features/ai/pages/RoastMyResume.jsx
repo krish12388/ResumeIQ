@@ -89,6 +89,7 @@ const RoastMyResume = () => {
           className="if-file-input"
           accept=".pdf"
           onChange={handleFileChange}
+          onClick={(e) => e.stopPropagation()} 
         />
         <div className="if-file-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"

@@ -95,6 +95,7 @@ const InterviewFormPage = () => {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
+                onClick={() => fileInputRef.current.click()} 
               >
                 <input
                   type="file"
@@ -103,6 +104,7 @@ const InterviewFormPage = () => {
                   accept=".pdf"
                   onChange={handleFileChange}
                   required={!file}
+                  onClick={(e) => e.stopPropagation()} 
                 />
 
                 <div className="if-file-icon">
