@@ -1,9 +1,10 @@
-
+import { useNavigate } from "react-router";
 import LoginForm from "../components/LoginForm";
 import {useAuth} from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 function Login() {
+  const navigate = useNavigate();
   const {handleLogin,loading,error,handleGoogleLogin,user}=useAuth();
   useEffect(() => {
     if (user) navigate("/");
