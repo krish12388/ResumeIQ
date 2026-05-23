@@ -42,6 +42,11 @@
 - [Real World Use Cases](#-real-world-use-cases)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
+  - [Why Microservices?](#why-microservices)
+  - [Service Overview](#service-overview)
+  - [Inter-Service Communication](#inter-service-communication)
+  - [Responsibility Boundaries](#responsibility-boundaries)
+  - [Docker Container Architecture](#docker-container-architecture-1)
 - [System Design Notes](#-system-design-notes)
 - [Folder Structure](#-folder-structure)
 - [Installation & Setup](#-installation--setup)
@@ -244,60 +249,178 @@ Each service runs inside a Docker container built on **Node 22 Alpine** and depl
 
 ## 🏗️ Architecture
 
+### Why Microservices?
+
+ResumeIQ is deliberately built as a **microservices-based platform** rather than a single monolithic Express application. This was not an accidental complexity — it was a purposeful architectural decision rooted in the nature of the problem domain.
+
+#### The Monolith Problem
+
+A single Express app handling auth, AI analysis, file uploads, job discovery, and PDF parsing sounds simple to start. In practice it creates serious structural problems:
+
+```
+Monolith Reality:
+──────────────────────────────────────────────────
+One codebase, every concern tangled together
+       │
+       ├── Auth bug? Redeploy the entire app
+       ├── Gemini API slow? Blocks all other requests
+       ├── File upload crash? Takes down login too
+       ├── Want to scale AI calls? Must scale everything
+       └── New developer? Needs context for all features
+```
+
+Auth logic and AI logic have completely different:
+- **Failure modes** — a JWT signing error should never affect PDF parsing
+- **Scaling needs** — AI calls are expensive; auth calls are cheap
+- **Deployment cadence** — auth rarely changes; AI prompts iterate constantly
+- **Security surface** — file upload handling should be isolated from credential management
+
+Keeping them in one process means one failure domain, one deployment risk, and one scaling bottleneck for everything.
+
+#### The Microservices Solution
+
+```
+Microservices Reality:
+──────────────────────────────────────────────────
+Each service owns exactly one responsibility
+       │
+       ├── Auth Service    → identity, sessions, OAuth
+       ├── Main/AI Service → resume intelligence, jobs
+       └── Each deploys, scales, and fails independently
+```
+
+ResumeIQ splits into **two backend services** — a natural, justified boundary:
+
+| Concern | Service | Why Separated |
+|---|---|---|
+| User identity, JWT issuance, Google OAuth, password hashing | **Auth Service** | Security-sensitive; must be isolated from file I/O and AI calls |
+| Resume upload, PDF parsing, Gemini AI, ATS scoring, roast, job discovery | **Main/AI Service** | Heavy I/O and external API calls; needs independent scaling |
+
+#### Benefits Realized in ResumeIQ
+
+| Benefit | Concrete Impact |
+|---|---|
+| 🔒 **Fault Isolation** | Gemini API timeout or rate-limit doesn't affect user login |
+| 📈 **Independent Scaling** | Main service (AI-heavy) can be scaled up on Render without touching auth |
+| 🚀 **Independent Deployments** | Updating a Gemini prompt only redeploys the main service |
+| 🧩 **Separation of Concerns** | Auth owns identity; main service owns intelligence — no overlap |
+| 🛡️ **Smaller Security Surface** | File upload handling (Multer, pdf-parse) is never in the same process as password hashing (bcrypt) or token signing |
+| 👥 **Parallel Development** | Auth and AI features can be developed and tested completely independently |
+| 🐳 **Container Isolation** | Each service runs in its own distroless container; a crash is fully contained |
+
+---
+
 ### Service Overview
 
-ResumeIQ is split into three independent Node.js services plus a React frontend:
+ResumeIQ is split into three independent Node.js services plus a React frontend. Each service communicates over REST on Docker's internal bridge network — only the ports you explicitly expose are reachable from outside.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         CLIENT LAYER                            │
 │          React 19 + Tailwind CSS 4 + Lenis + Vite 8             │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │ HTTPS / REST
-                           ▼
-           ┌───────────────────────────────┐
-           │         Auth Service          │
-           │    Express 5 (Node.js 22)     │
-           │  JWT · Bcrypt · Google OAuth  │
-           └───────────────────────────────┘
-                           │
-           ┌───────────────────────────────┐
-           │        Main / AI Service      │
-           │    Express 5 (Node.js 22)     │
-           │  Gemini · pdf-parse · Multer  │
-           │  SerpApi · Zod · Mongoose     │
-           └───────────────────────────────┘
-                           │
-           ┌───────────────────────────────┐
-           │           Data Layer          │
-           │      MongoDB (Mongoose)       │
-           └───────────────────────────────┘
-                           │
-           ┌───────────────────────────────┐
-           │         External APIs         │
-           │   Google Gemini · SerpApi     │
-           │   Google OAuth                │
-           └───────────────────────────────┘
+└───────────────┬──────────────────────────┬──────────────────────┘
+                │                          │
+                │ /auth/*                  │ /api/*
+                ▼                          ▼
+┌───────────────────────────┐  ┌───────────────────────────────┐
+│       Auth Service        │  │       Main / AI Service       │
+│   Express 5 · Node 22     │  │     Express 5 · Node 22       │
+│                           │  │                               │
+│  • JWT issuance & verify  │  │  • Resume upload (Multer)     │
+│  • Google OAuth (googleapis│  │  • PDF parsing (pdf-parse)    │
+│  • Password hash (bcrypt) │  │  • AI analysis (@google/genai)│
+│  • User registration      │  │  • ATS scoring (Gemini)       │
+│  • Session management     │  │  • Resume Roast (Gemini)      │
+│                           │  │  • Interview report (Gemini)  │
+│  Port: 3001               │  │  • Job discovery (SerpApi)    │
+└───────────┬───────────────┘  │  • Input validation (Zod)     │
+            │                  │                               │
+            │                  │  Port: 3002                   │
+            └────────┬─────────┘
+                     │
+                     ▼
+        ┌────────────────────────┐
+        │       Data Layer       │
+        │   MongoDB · Mongoose   │
+        │   Port: 27017          │
+        └────────────┬───────────┘
+                     │
+                     ▼
+        ┌────────────────────────┐
+        │     External APIs      │
+        │  Google Gemini API     │
+        │  Google OAuth API      │
+        │  SerpApi               │
+        └────────────────────────┘
 ```
+
+---
+
+### Inter-Service Communication
+
+Services talk to each other over **Docker's internal bridge network** (`resumeiq-net`). Docker Compose service names act as hostnames — no service is reachable from the public internet except through explicitly published ports.
+
+```
+Frontend  →  Auth Service    (via VITE_AUTH_URL, e.g. http://auth-service:3001)
+Frontend  →  Main Service    (via VITE_API_URL,  e.g. http://main-service:3002)
+Main Svc  →  Auth Service    (JWT verification on protected routes)
+Both Svcs →  MongoDB         (via MONGO_URI = mongodb://mongodb:27017/resumeiq)
+Main Svc  →  Gemini API      (external HTTPS, GEMINI_API_KEY)
+Main Svc  →  SerpApi         (external HTTPS, SERPAPI_KEY)
+Auth Svc  →  Google OAuth    (external HTTPS, GOOGLE_CLIENT_ID/SECRET)
+```
+
+No service reaches into another service's database collection directly. Each owns its own data domain.
+
+---
+
+### Responsibility Boundaries
+
+A clear boundary rule was enforced throughout development:
+
+> **If it's about who you are → Auth Service.**  
+> **If it's about what your resume says → Main/AI Service.**
+
+This single rule prevented scope creep and kept each service's `package.json` lean and purposeful. The auth service has zero AI dependencies. The main service has zero password/OAuth dependencies. They share only the JWT secret to verify tokens.
+
+---
 
 ### Docker Container Architecture
 
-Each service is containerized with a multi-stage build: **Node 22 Alpine** for building (with devDependencies stripped via `npm ci --omit=dev`), then copied into a lean **distroless Node 22 Debian12** image for production.
+Each service uses an identical **multi-stage Dockerfile** pattern: build on Node 22 Alpine (small, fast), then copy the production-only output into a **distroless Node 22** image. Distroless has no shell, no package manager, no OS utilities — just the Node runtime and your app. This dramatically reduces the attack surface and image size.
+
+```dockerfile
+# Stage 1 — Install production deps only
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev      # strips devDependencies
+COPY . .
+
+# Stage 2 — Minimal runtime, no shell
+FROM gcr.io/distroless/nodejs22-debian12
+WORKDIR /app
+COPY --from=builder /app .
+EXPOSE 3002
+CMD ["index.js"]
+```
+
+All four containers share a single Docker bridge network so they resolve each other by name:
 
 ```
-┌─────────────────────────────────────────────────┐
-│               Docker Network: resumeiq-net       │
-│                                                   │
-│  ┌──────────┐  ┌──────────┐  ┌────────────────┐  │
-│  │ frontend │  │   auth   │  │  main/ai-svc   │  │
-│  │  :5173   │  │  :3001   │  │     :3002      │  │
-│  └──────────┘  └──────────┘  └────────────────┘  │
-│                     │                             │
-│              ┌──────────────┐                     │
-│              │   mongodb    │                     │
-│              │   :27017     │                     │
-│              └──────────────┘                     │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                  Docker Network: resumeiq-net             │
+│                                                           │
+│  ┌──────────┐   ┌──────────────┐   ┌──────────────────┐  │
+│  │ frontend │   │ auth-service │   │  main-service    │  │
+│  │  :5173   │   │    :3001     │   │      :3002       │  │
+│  └──────────┘   └──────┬───────┘   └────────┬─────────┘  │
+│                        │                    │             │
+│                 ┌──────▼────────────────────▼──────┐      │
+│                 │           mongodb                │      │
+│                 │            :27017                │      │
+│                 └──────────────────────────────────┘      │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ---
