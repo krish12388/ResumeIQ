@@ -1,4 +1,4 @@
-import PDFParse  from "pdf-parse";
+import {PDFParse}  from "pdf-parse";
 import GenerateInterviewReportController from "./Ai.response.controller.js";
 import interviewReportModal from "../modals/AiResponseModal.js";
 import {roastResumeController} from '../controller/roastResume.js'
