@@ -7,7 +7,6 @@ import { AiContextProvider } from "./features/ai/Ai.context.jsx";
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-// catch missing env variable early
 if (!googleClientId) {
   console.error('❌ VITE_GOOGLE_CLIENT_ID is missing from your .env file');
 }

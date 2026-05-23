@@ -151,11 +151,7 @@ exports.loginWithGoogle = async (req, res) => {
 
     let user = await User.findOne({ email });
     if (!user) {
-      user = await User.create({
-        email,
-        name,
-        image: picture,
-      });
+      user = await User.create({ email, name, profileImage: picture });
     }
      const payload = {
       name: user.name,

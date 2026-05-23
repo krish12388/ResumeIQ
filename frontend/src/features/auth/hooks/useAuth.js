@@ -23,7 +23,7 @@ function useAuth() {
       setError(null);
       return data;
     } catch (error) {
-      setError(error);
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -37,7 +37,7 @@ function useAuth() {
       setError(null);
       return data;
     } catch (error) {
-      setError(error);
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,7 @@ function useAuth() {
       setError(null);
       return data;
     } catch (error) {
-      setError(error);
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ function useAuth() {
       setError(null);
       return data;
     } catch (error) {
-      setError(error);
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -79,14 +79,16 @@ function useAuth() {
         console.log(data);
         setUser(data.user);
         setError(null);
+        navigate("/"); 
       } catch (err) {
-        setError(err);
+        setError(err.message || "Something went wrong");
       } finally {
         setLoading(false);
       }
     },
     onError: (error) => setError(error),
     flow: "auth-code",
+    redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URL,
   });
 
   return {

@@ -46,11 +46,11 @@ async function logout() {
       "/logout",
       {}
     );
-
-    return response.data;
+localStorage.removeItem("token");  
+  return response.data;
   } catch (error) {
     console.log(error);
-    return error.message; //handle error in UI
+    return error.message;
   }
 }
 
@@ -76,7 +76,7 @@ async function loginWithGoogle(code){
       return result.data;
     } catch (e) {
       console.log(e);
-      return e.message; //handle error in UI
+      throw error;//handle error in UI
     }
 }
 
