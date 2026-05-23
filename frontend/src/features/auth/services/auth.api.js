@@ -4,13 +4,20 @@ const authInstance = axios.create({
   withCredentials: true,
 });
 
+authInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 async function register({ name, email, password }) {
   try {
     const response = await authInstance.post(
       "/register",
       { name, email, password }
     );
-  
+    localStorage.setItem("token", response.data.token);
     return response.data;
     
   } catch (error) {
@@ -25,7 +32,7 @@ async function login({ email, password }) {
       "/login",
       { email, password }
     );
-
+    localStorage.setItem("token", response.data.token);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -65,6 +72,7 @@ async function getCurrentUser() {
 async function loginWithGoogle(code){
       try {
       const result = await authInstance.post("/login-with-google", { code });
+      localStorage.setItem("token", result.data.token);
       return result.data;
     } catch (e) {
       console.log(e);

@@ -40,7 +40,8 @@ exports.register = async (req, res) => {
         name: user.name,
         email: user.email,
         id: user._id,
-      }
+      },
+      token: token
     });
   } catch (error) {
     console.log(error);
@@ -110,6 +111,7 @@ exports.login = async (req, res) => {
       success: true,
       message: "Login successful",
       user: payload,
+      token: token
     });
 
   } catch (error) {
@@ -183,6 +185,7 @@ exports.loginWithGoogle = async (req, res) => {
         email: user.email,
         id: user._id,
       }
+      ,token: token
     });
   } catch (error) {
     console.log(error);

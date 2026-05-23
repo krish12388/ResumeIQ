@@ -4,6 +4,13 @@ const aiInstance = axios.create({
     baseURL: `${import.meta.env.VITE_AI_BASE_URL}/api/ai`,
     withCredentials: true,
 })
+aiInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 async function generateInterviewReport(resumeFile,jobDescription,selfDescription){
  try {
