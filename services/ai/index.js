@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({ origin: ["http://localhost:5173","http://localhost:5175", "http://localhost:3001","http://localhost:5175"], credentials: true }));
+app.use(cors({ origin: ["http://localhost:5173","http://localhost:5175", "http://localhost:3001","http://localhost:5175","https://resumeiq-frontend-v8en.onrender.com"], credentials: true }));
 
 if (dbConnect()) {
   const PORT = process.env.PORT || 3002;
