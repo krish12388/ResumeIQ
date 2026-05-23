@@ -133,7 +133,10 @@ exports.loginWithGoogle = async (req, res) => {
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET missing");
     }
-    const googleResponse = await oauth2Client.getToken(code);
+    const googleResponse = await oauth2Client.getToken({
+  code,
+  redirect_uri: process.env.GOOGLE_REDIRECT_URL,
+});
     oauth2Client.setCredentials(googleResponse.tokens);
 
     if (!googleResponse.tokens.access_token) {
@@ -184,12 +187,12 @@ exports.loginWithGoogle = async (req, res) => {
       ,token: token
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+  console.error("Google login error:", error?.response?.data || error); // ✅
+  res.status(500).json({
+    success: false,
+    message: error?.response?.data?.error_description || error.message,
+  });
+}
 };
 exports.logout = async (req, res) => {
   try {
