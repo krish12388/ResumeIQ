@@ -15,11 +15,7 @@ function App() {
     <>
       <Toaster />
       <GoogleOAuthProvider clientId={googleClientId}>
-        <AuthProvider>
-          <AiContextProvider>
             <RouterProvider router={router} />
-          </AiContextProvider>
-        </AuthProvider>
       </GoogleOAuthProvider>
     </>
   )

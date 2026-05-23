@@ -1,4 +1,3 @@
-import {createBrowserRouter} from "react-router";
 import Register from "./features/auth/pages/Register";
 import Login from "./features/auth/pages/Login";
 import Home from "./features/auth/pages/Home";
@@ -11,13 +10,24 @@ import Pricing from "./pages/Pricing";
 import Docs from "./pages/Docs";
 import RoastMyResume from "./features/ai/pages/RoastMyResume";
 import UserProfile from "./features/auth/pages/UserProfile";
-
+import {createBrowserRouter, Outlet} from "react-router";
+import { AuthProvider } from "./features/auth/auth.context.jsx";
+import { AiContextProvider } from "./features/ai/Ai.context.jsx";
 /**
  * @returns {object} router
  * @description router - router for the application
  */
-
+const RootLayout = () => (
+  <AuthProvider>
+    <AiContextProvider>
+      <Outlet />
+    </AiContextProvider>
+  </AuthProvider>
+);
 export const router = createBrowserRouter([
+  {
+    element: <RootLayout />,  // ✅ wraps all routes, inside Router context
+    children: [
     {
         path: "/login",
         element: <Login />,
@@ -53,4 +63,6 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <Protected><UserProfile /></Protected>
     }
+ ]
+  }
 ]);
