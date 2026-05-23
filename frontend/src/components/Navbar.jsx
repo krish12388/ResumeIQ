@@ -14,7 +14,7 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // Close menu on outside click
+  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -25,7 +25,7 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
 
-  // Close menu on route change / scroll lock
+  // Lock body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -41,7 +41,8 @@ const Navbar = () => {
 
   return (
     <nav className="navbar" ref={menuRef}>
-      <div className="container navbar-inner">
+      {/* ── Top bar (logo + desktop links + hamburger) ── */}
+      <div className="navbar-inner">
         {/* Logo */}
         <div className="nav-left">
           <div className="nav-logo-mark">
@@ -81,7 +82,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Hamburger button (mobile only) */}
+        {/* Hamburger — mobile only */}
         <button
           className={`nav-hamburger ${menuOpen ? "nav-hamburger--open" : ""}`}
           onClick={() => setMenuOpen((v) => !v)}
@@ -94,7 +95,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile drawer */}
+      {/* ── Mobile drawer (outside navbar-inner so it spans full width) ── */}
       <div className={`nav-mobile-drawer ${menuOpen ? "nav-mobile-drawer--open" : ""}`}>
         <div className="nav-mobile-links">
           {navLinks.map((l) => (
