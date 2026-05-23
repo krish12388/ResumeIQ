@@ -10,3 +10,6 @@ README.md
 *.log
 coverage
 .vscode
+npm-debug.log
+dist
+build

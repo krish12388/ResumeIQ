@@ -1,22 +1,18 @@
-FROM node:22.14-alpine
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy manifests first – layer cached as long as deps don't change
 COPY package*.json ./
-
-# Install only production dependencies (excludes nodemon, test tools, etc.)
-RUN npm ci --omit=dev --prefer-offline
+RUN npm ci --omit=dev
 
 COPY . .
 
-# Run as a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+FROM gcr.io/distroless/nodejs22-debian12
 
-ENV NODE_ENV=production
-ENV PORT=3002
+WORKDIR /app
+
+COPY --from=builder /app .
 
 EXPOSE 3002
 
-CMD ["node", "index.js"]
+CMD ["index.js"]

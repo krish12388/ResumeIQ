@@ -29,10 +29,10 @@ exports.register = async (req, res) => {
       expiresIn: "1h",
     });
     res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax", 
-});
+      httpOnly: true,
+        secure: process.env.NODE_ENV === "production",  // ✅
+        sameSite: "none",
+    });
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
@@ -102,8 +102,8 @@ exports.login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax", 
+        secure: process.env.NODE_ENV === "production",  // ✅
+        sameSite: "none",
     });
 
     return res.status(200).json({
@@ -172,8 +172,8 @@ exports.loginWithGoogle = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax", 
+        secure: process.env.NODE_ENV === "production",  // ✅
+        sameSite: "none",
     });
     return res.status(200).json({
       success: true,
