@@ -76,7 +76,7 @@ async function loginWithGoogle(code){
       return result.data;
     } catch (e) {
       console.log(e);
-      throw error;//handle error in UI
+      throw e;//handle error in UI
     }
 }
 
