@@ -26,11 +26,13 @@ const userSchema = new Schema({
     default: "",
   },
 });
-userSchema.pre("save", async function () {
-  if (!this.isModified("password"));
+userSchema.pre("save", function(next) {
+  if (!this.password) return next();  // Google users have no password
+  
   this.password = createHmac("sha256", process.env.PASSWORD_SECRET)
     .update(this.password)
     .digest("hex");
+  next();
 });
 
 const User = model("User", userSchema);
