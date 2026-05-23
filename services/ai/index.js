@@ -4,7 +4,7 @@ import dbConnect from "./configs/databaseConnect.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import interviewRouter from "./routes/interview.route.js";
-dotenv.config({path:"./ai.env"});
+dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
