@@ -24,7 +24,7 @@ function useAuth() {
       setUser(data.user);
       setError(null);
       return data;
-    } catch (error) {
+    } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -38,7 +38,7 @@ function useAuth() {
       setUser(data.user);
       setError(null);
       return data;
-    } catch (error) {
+    } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -52,7 +52,7 @@ function useAuth() {
       setUser(null);
       setError(null);
       return data;
-    } catch (error) {
+    } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -66,7 +66,7 @@ function useAuth() {
       setUser(data.user);
       setError(null);
       return data;
-    } catch (error) {
+    } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -80,7 +80,7 @@ function useAuth() {
         const data = await loginWithGoogle(codeResponse.code);
         setUser(data.user);
         setError(null);
-        return data; 
+        navigate("/");  
       } catch (err) {
         setError(err.message || "Something went wrong");
       } finally {
