@@ -5,6 +5,9 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 function Login() {
   const {handleLogin,loading,error,handleGoogleLogin}=useAuth();
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user]);
 
   useEffect(() => {
     if(loading){
