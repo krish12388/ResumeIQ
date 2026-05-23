@@ -149,8 +149,49 @@
   font-size: 16px;
 }
 
+@media (max-width: 768px) {
+  .if-container {
+    padding: 40px 16px 80px;
+  }
+
+  .if-heading {
+    font-size: 28px;
+  }
+
+  .if-sub {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 640px) {
+  .if-container {
+    padding: 32px 12px 64px;
+  }
+
   .if-card {
-    padding: 24px;
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .if-heading {
+    font-size: 24px;
+  }
+
+  .if-header {
+    margin-bottom: 32px;
+  }
+
+  .if-file-drop {
+    padding: 28px 16px;
+  }
+
+  .if-textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+    min-height: 120px;
+  }
+
+  .if-submit-btn {
+    height: 48px;
+    font-size: 15px;
   }
 }

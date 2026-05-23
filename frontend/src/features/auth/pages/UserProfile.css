@@ -447,11 +447,25 @@
 }
 
 @media (max-width: 640px) {
+  .profile-container {
+    padding-top: 24px;
+    padding-bottom: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .profile-banner {
+    padding: 24px 20px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+  }
+
   .reports-list-grid {
     grid-template-columns: 1fr;
   }
   .profile-empty-card {
     grid-column: span 1;
+    padding: 48px 20px;
   }
   .banner-left {
     flex-direction: column;
@@ -459,14 +473,49 @@
     gap: 16px;
   }
   .banner-stats {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 12px;
   }
   .banner-stat-box {
-    width: 100%;
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 12px;
+  }
+  .stat-number-large {
+    font-size: 24px;
   }
   .filter-strip {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .search-input-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+  .avatar-large {
+    width: 72px;
+    height: 72px;
+    font-size: 24px;
+  }
+  .user-name {
+    font-size: 20px;
+  }
+  .report-card-premium {
+    padding: 20px;
+    border-radius: 14px;
+  }
+  .report-card-ring-wrapper {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 380px) {
+  .banner-stats {
+    flex-direction: column;
+  }
+  .banner-stat-box {
+    width: 100%;
   }
 }

@@ -102,4 +102,28 @@
   .sr-grid {
     grid-template-columns: 1fr;
   }
+
+  .sr-heading {
+    font-size: 28px;
+  }
+
+  .sr-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sample-report-container {
+    padding-top: 32px;
+    padding-bottom: 60px;
+  }
+
+  .sr-heading {
+    font-size: 24px;
+  }
+
+  .sr-card {
+    padding: 16px;
+  }
 }

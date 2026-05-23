@@ -629,30 +629,78 @@
     padding: 40px 24px;
     gap: 32px;
   }
+
+  .upload-container {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 24px;
+  }
+
+  .roast-output-panel {
+    min-width: unset;
+    width: 100%;
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 640px) {
   .container {
-    padding: 32px 16px;
+    padding: 24px 16px;
     flex-direction: column;
     gap: 24px;
   }
 
   .if-heading {
-    font-size: 28px;
+    font-size: 26px;
+  }
+
+  .if-sub {
+    font-size: 13px;
+    max-width: 100%;
   }
 
   .if-card {
-    padding: 20px;
+    padding: 20px 16px;
+  }
+
+  .if-file-drop {
+    padding: 24px 16px;
+    min-height: 160px;
+  }
+
+  .if-file-input {
+    /* Keep hidden but ensure tap area covers the drop zone */
+    display: block;
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-container {
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 24px;
+    min-width: unset;
+    width: 100%;
   }
 
   .roast-output-panel {
-    padding: 20px;
-    min-height: 300px;
+    padding: 20px 16px;
+    min-height: 260px;
+    min-width: unset;
+    width: 100%;
+    margin-top: 0;
   }
 
   .roast-verdict-heading {
     font-size: 18px;
+  }
+
+  .roast-weakness-header {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 
