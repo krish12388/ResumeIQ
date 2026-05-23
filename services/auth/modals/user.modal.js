@@ -26,16 +26,12 @@ const userSchema = new Schema({
     default: "",
   },
 });
-userSchema.pre("save", function(done) {
-  console.log("PASSWORD_SECRET:", process.env.PASSWORD_SECRET); // 👈 add this
-  console.log("password:", this.password);
-  
-  if (!this.password || !this.isModified("password")) return done();
+userSchema.pre("save", async function() {
+  if (!this.password || !this.isModified("password")) return;
 
   this.password = createHmac("sha256", process.env.PASSWORD_SECRET)
     .update(this.password)
     .digest("hex");
-  done();
 });
 
 const User = model("User", userSchema);
